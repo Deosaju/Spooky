@@ -8,8 +8,8 @@ module.exports = {
     themes: [
       {
         light: {
-          primary: "#93BBFB",
-          "primary-content": "#212638",
+          primary: "#FF8863",
+          "primary-content": "#ffffff",
           secondary: "#DAE8FF",
           "secondary-content": "#212638",
           accent: "#93BBFB",
@@ -23,7 +23,7 @@ module.exports = {
           info: "#93BBFB",
           success: "#34EEB6",
           warning: "#FFCF72",
-          error: "#FF8863",
+          error: "#FFfFF3",
 
           "--rounded-btn": "9999rem",
 
@@ -40,25 +40,23 @@ module.exports = {
       },
       {
         dark: {
-          primary: "#212638",
-          "primary-content": "#F9FBFF",
-          secondary: "#323f61",
-          "secondary-content": "#F9FBFF",
-          accent: "#4969A6",
-          "accent-content": "#F9FBFF",
-          neutral: "#F9FBFF",
-          "neutral-content": "#385183",
-          "base-100": "#385183",
-          "base-200": "#2A3655",
-          "base-300": "#212638",
-          "base-content": "#F9FBFF",
-          info: "#385183",
-          success: "#34EEB6",
-          warning: "#FFCF72",
-          error: "#FF8863",
-
+          primary: "#8B0000", // Dark red
+          "primary-content": "#F8F8FF", // Ghost white
+          secondary: "#1C1C1C", // Dark gray
+          "secondary-content": "#F8F8FF", // Ghost white
+          accent: "#8B0000", // Dark red
+          "accent-content": "#F8F8FF", // Ghost white
+          neutral: "#F8F8FF", // Ghost white
+          "neutral-content": "#8B0000", // Dark red
+          "base-100": "#000000", // Black
+          "base-200": "#1C1C1C", // Dark gray
+          "base-300": "#2E2E2E", // Darker gray
+          "base-content": "#F8F8FF", // Ghost white
+          info: "#A9A9A9", // Dark gray
+          success: "#006400", // Dark green
+          warning: "#FF8C00", // Dark orange
+          error: "#8B0000", // Dark red
           "--rounded-btn": "9999rem",
-
           ".tooltip": {
             "--tooltip-tail": "6px",
             "--tooltip-color": "oklch(var(--p))",
