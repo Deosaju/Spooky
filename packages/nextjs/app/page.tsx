@@ -10,7 +10,7 @@ const Home: NextPage = () => {
         </video>
         <div className="hero-content text-center relative z-10">
           <div className="max-w-max mt-32">
-            <h1 className="text-5xl font-sans md:font-serif font-bold text-white">"Stories are the threads that weave the fabric of our shared human experience."w</h1>
+            <h1 className="text-5xl font-sans md:font-serif font-bold text-white">&quot;Stories are the threads that weave the fabric of our shared human experience.&quot;</h1>
             <p className="pt-6 text-white">Create, Collaborate, and Explore Immersive Narratives on the Blockchain</p>
             <p className="pb-6 text-white">Make Worlds and Charachters yours</p>
             <div className="flex gap-4 justify-center">
@@ -32,12 +32,8 @@ const Home: NextPage = () => {
       <section className="base-100 body-font">
         <div className="max-w-7xl mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
           <div className="lg:flex-grow md:w-1/2 md:ml-24 pt-6 flex flex-col md:items-start md:text-left mb-40 items-center text-center">
-            <h1 className="mb-5 sm:text-6xl text-5xl items-center Avenir xl:w-2/2 ">
-              Create Stunning Stories,Characters, Worlds 🌏
-            </h1>
-            <p className="mb-4 xl:w-3/4 base-100 text-lg ">
-              Make Mint and Sell them ! 💵
-            </p>
+            <h1 className="mb-5 sm:text-6xl text-5xl items-center Avenir xl:w-2/2 ">Create Stunning Stories,Characters, Worlds 🌏</h1>
+            <p className="mb-4 xl:w-3/4 base-100 text-lg ">Make Mint and Sell them ! 💵</p>
             <div className="flex justify-center">
               <a
                 className="inline-flex items-center px-5 py-3 mt-2 font-medium text-white transition duration-500 ease-in-out transform bg-transparent border rounded-lg bg-gray-900"
@@ -58,9 +54,7 @@ const Home: NextPage = () => {
         <section className="mx-auto">
           <div className="container px-5 mx-auto lg:px-24 ">
             <div className="flex flex-col w-full mb-4 text-left lg:text-center">
-              <h1 className="mb-8 text-2xl Avenir font-semibold ">
-                Deployed on top-tier Chain
-              </h1>
+              <h1 className="mb-8 text-2xl Avenir font-semibold ">Deployed on top-tier Chain</h1>
             </div>
             <div className="flex gap-16 mb-16 text-center  justify-center align-middle items-center">
               <img
@@ -72,12 +66,8 @@ const Home: NextPage = () => {
           </div>
         </section>
         <div className="grr max-w-7xl pt-20 mx-auto text-center">
-          <h1 className="mb-8 text-6xl Avenir font-semibold ">
-            Spooky NFTS
-          </h1>
-          <h1 className="mb-8 text-2xl Avenir font-semibold base-100 text-center">
-            Inline Worlds and Charachters directly from your story.
-          </h1>
+          <h1 className="mb-8 text-6xl Avenir font-semibold ">Spooky NFTS</h1>
+          <h1 className="mb-8 text-2xl Avenir font-semibold base-100 text-center">Inline Worlds and Charachters directly from your story.</h1>
           <div className="grid grid-cols-2 gap-16 mb-16 text-center lg:grid-cols-4">
             <div className="flex items-center justify-center">
               <img
@@ -112,12 +102,8 @@ const Home: NextPage = () => {
         <section className="relative">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
             <div className="py-24 md:py-36">
-              <h1 className="mb-5 text-6xl Avenir font-semibold ">
-                Subscribe to our newsletter
-              </h1>
-              <h1 className="mb-9 text-2xl font-semibold ">
-                Enter your email address and get our newsletters straight away.
-              </h1>
+              <h1 className="mb-5 text-6xl Avenir font-semibold ">Subscribe to our newsletter</h1>
+              <h1 className="mb-9 text-2xl font-semibold ">Enter your email address and get our newsletters straight away.</h1>
               <input
                 placeholder="jack@example.com"
                 name="email"
