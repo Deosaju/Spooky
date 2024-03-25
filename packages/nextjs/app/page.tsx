@@ -1,7 +1,9 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Loader from "../components/Loader";
-import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,10 +26,10 @@ const Home: NextPage = () => {
             <div className="max-w-max mt-32">
               <h1 className="text-5xl font-sans md:font-serif font-bold text-white">&quot;Stories are the threads that weave the fabric of our shared human experience.&quot;</h1>
               <p className="pt-6 text-white">Create, Collaborate, and Explore Immersive Narratives on the Blockchain</p>
-              <p className="pb-6 text-white">Make Worlds and Charachters yours</p>
+              <p className="pb-6 text-white">Make Worlds and Charachters that have Life</p>
               <div className="flex gap-4 justify-center">
-                <button className="btn btn-primary">Start Creating</button>
-                <button className="btn btn-primary">Explore Stories</button>
+                <Link href="/story" className="btn btn-primary">Start Creating</Link>
+                <Link href="/stories" className="btn btn-primary">Explore Stories</Link>
               </div>
               <div className="flex gap-4 justify-center mt-5 align-middle items-center">
                 <label className="form-control w-full max-w-xs">
