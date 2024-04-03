@@ -3,10 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import Loader from "../../components/Loader";
 import openai from "../../services/openai/openai";
+import { TablelandService } from "../../services/tableland/tablelandService";
 import generateStoryPrompt from "./_components/GenerateStoryPrompt";
 import type { NextPage } from "next";
 import { APIConnectionError } from "openai";
 
+const tablelandService = new TablelandService();
 interface Message {
   text: string;
   sender: string;
@@ -26,6 +28,7 @@ const Story: NextPage = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [isBotTyping, setIsBotTyping] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -90,6 +93,29 @@ const Story: NextPage = () => {
     }
   };
 
+  const handleSaveStory = async () => {
+    setIsSaving(true);
+
+    try {
+      await tablelandService.connect();
+      const db = tablelandService.getDatabase();
+      const tableName = `stories_421614_479`;
+      // Define the `Database` response object
+      const itemCountQuery = db.prepare(`SELECT * FROM ${tableName};`);
+      // Call a query statement method
+      const itemCount = await itemCountQuery.all();
+      console.log(itemCount.results.length);
+      const stmt = db
+        .prepare(`INSERT INTO  ${tableName} VALUES (?1 , ?2);`)
+        .bind(itemCount.results.length + 1, "bobby");
+      await stmt.all();
+    } catch (error) {
+      console.error("Error saving story:", error);
+    }
+
+    setIsSaving(false);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -140,7 +166,13 @@ const Story: NextPage = () => {
             </div>
           </div>
           <div>
-            <button className="btn btn-outline rounded-md mt-5 btn-success">Post Story</button>
+            <button
+              onClick={handleSaveStory}
+              disabled={isSaving}
+              className="btn btn-outline rounded-md mt-5 btn-success"
+            >
+              {isSaving ? "Saving..." : "Save Story"}
+            </button>
           </div>
         </div>
       )}

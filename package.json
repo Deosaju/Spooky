@@ -40,6 +40,8 @@
     "lint-staged": "^13.0.3"
   },
   "dependencies": {
+    "@tableland/sdk": "^6.0.0",
+    "ethers": "^5.7.2",
     "openai": "^4.29.2"
   }
 }
