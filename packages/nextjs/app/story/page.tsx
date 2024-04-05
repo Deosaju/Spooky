@@ -95,24 +95,19 @@ const Story: NextPage = () => {
 
   const handleSaveStory = async () => {
     setIsSaving(true);
-
     try {
-      await tablelandService.connect();
-      const db = tablelandService.getDatabase();
-      const tableName = `stories_421614_479`;
-      // Define the `Database` response object
-      const itemCountQuery = db.prepare(`SELECT * FROM ${tableName};`);
-      // Call a query statement method
-      const itemCount = await itemCountQuery.all();
-      console.log(itemCount.results.length);
-      const stmt = db
-        .prepare(`INSERT INTO  ${tableName} VALUES (?1 , ?2);`)
-        .bind(itemCount.results.length + 1, "bobby");
-      await stmt.all();
+      const title = prompt("Please enter the title of the story:");
+      if (title) {
+        await tablelandService.saveStory(title, fullStory);
+        alert("Story saved successfully!");
+        window.location.href = "http://localhost:3000/stories";
+      } else {
+        alert("Title is required to save the story.");
+      }
     } catch (error) {
       console.error("Error saving story:", error);
+      alert("Error saving story. Please try again.");
     }
-
     setIsSaving(false);
   };
 

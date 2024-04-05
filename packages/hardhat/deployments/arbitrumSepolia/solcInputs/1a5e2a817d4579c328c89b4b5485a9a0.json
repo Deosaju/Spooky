@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/Spooky.sol": {
+      "content": "//SPDX-License-Identifier: MIT\npragma solidity >=0.8.0 <0.9.0;\n\ncontract Spooky {\n    struct Story {\n        uint256 id;\n        string title;\n        string content;\n        address author;\n    }\n\n    mapping(uint256 => Story) public stories;\n\n    event StoryCreated(uint256 indexed storyId, string title, address indexed author);\n    event StoryUpdated(uint256 indexed storyId, string content, address indexed contributor);\n\n    function createStory(uint256 _storyId, string memory _title, string memory _content) public {\n        require(stories[_storyId].id == 0, \"Story with the given ID already exists\");\n        stories[_storyId] = Story(_storyId, _title, _content, msg.sender);\n        emit StoryCreated(_storyId, _title, msg.sender);\n    }\n\n    function updateStory(uint256 _storyId, string memory _content) public {\n        Story storage story = stories[_storyId];\n        require(story.id != 0, \"Story does not exist\");\n        story.content = _content;\n        emit StoryUpdated(_storyId, _content, msg.sender);\n    }\n\n    function getStory(uint256 _storyId) public view returns (uint256, string memory, string memory, address) {\n        Story storage story = stories[_storyId];\n        require(story.id != 0, \"Story does not exist\");\n        return (story.id, story.title, story.content, story.author);\n    }\n\n    function checkStoryExists(uint256 _storyId) public view returns (bool) {\n        return stories[_storyId].id != 0;\n    }\n}"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": true,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
