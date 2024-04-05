@@ -44,10 +44,25 @@ export class TablelandUtils {
     return result.meta.rows;
   }
 
-  async getNFTImagesForStory(storyId: number): Promise<any[]> {
-    const query = `SELECT * FROM ${process.env.NEXT_PUBLIC_TABLELAND_NFT} WHERE story_id = ?`;
+  async getAllStories(): Promise<any[] | null> {
+    const query = `SELECT id, author, title FROM ${process.env.NEXT_PUBLIC_TABLELAND_STORY}`;
+    const statement = this.tablelandService.getDatabase().prepare(query);
+    const result: Result<any> = await statement.run();
+    if (result.success) {
+      return result.results;
+    } else {
+      return null;
+    }
+  }
+
+  async getImagesForStory(storyId: number): Promise<string[]> {
+    const query = `SELECT image_url FROM ${process.env.NEXT_PUBLIC_TABLELAND_NFT} WHERE story_id = ?`;
     const statement = this.tablelandService.getDatabase().prepare(query);
     const result: Result<any> = await statement.bind(storyId).run();
-    return result.meta.rows;
+    if (result.success) {
+      return result.results.map(row => row.image_url);
+    } else {
+      return [];
+    }
   }
 }

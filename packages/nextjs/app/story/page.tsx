@@ -133,11 +133,10 @@ const Story: NextPage = () => {
   const handleSaveStory = async () => {
     setIsSaving(true);
     try {
-      const title = prompt("Please enter the title of the story:");
       if (title) {
         await storyContract.saveStory(title, fullStory);
         alert("Story saved successfully!");
-        router.push(`/stories/stories`);
+        router.push(`/stories`);
       } else {
         alert("Title is required to save the story.");
       }
@@ -192,10 +191,15 @@ const Story: NextPage = () => {
       if (title) {
         const existingStory = await tablelandUtils.getStoryByTitle(title);
         const connectedAuthor = connectedAddress || "Unknown";
+        console.log(existingStory);
 
-        if (existingStory && existingStory[0].author !== connectedAuthor) {
-          alert(`The title "${title}" already exists and is owned by another author. Please choose a different title.`);
-          return;
+        if (existingStory && existingStory.length != 0) {
+          if (existingStory[0].author !== connectedAuthor) {
+            alert(
+              `The title "${title}" already exists and is owned by another author. Please choose a different title.`,
+            );
+            return;
+          }
         }
         let storyId;
         if (existingStory != null && existingStory.length != 0) {
