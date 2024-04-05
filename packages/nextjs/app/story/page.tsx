@@ -3,18 +3,24 @@
 import { useEffect, useRef, useState } from "react";
 import Loader from "../../components/Loader";
 import openai from "../../services/openai/openai";
-import { TablelandService } from "../../services/tableland/tablelandService";
 import generateStoryPrompt from "./_components/GenerateStoryPrompt";
 import type { NextPage } from "next";
 import { APIConnectionError } from "openai";
+import { useAccount } from "wagmi";
+import { StoryContract } from "~~/services/contract/StoryContract";
+import { generateImagesFromPrompts } from "~~/utils/promts/imageGenerator";
+import { generateImagePrompts } from "~~/utils/promts/promptGenerator";
+import { TablelandUtils } from "~~/utils/tableland/tablelandutil";
 
-const tablelandService = new TablelandService();
+const tablelandUtils = new TablelandUtils();
+const storyContract = new StoryContract();
 interface Message {
   text: string;
   sender: string;
 }
 
 const Story: NextPage = () => {
+  const { address: connectedAddress } = useAccount();
   const [isLoading, setIsLoading] = useState(true);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -98,7 +104,7 @@ const Story: NextPage = () => {
     try {
       const title = prompt("Please enter the title of the story:");
       if (title) {
-        await tablelandService.saveStory(title, fullStory);
+        await storyContract.saveStory(title, fullStory);
         alert("Story saved successfully!");
         window.location.href = "http://localhost:3000/stories";
       } else {
@@ -111,6 +117,23 @@ const Story: NextPage = () => {
     setIsSaving(false);
   };
 
+  const handleMintNFTs = async () => {
+    try {
+      const title = prompt("Please enter the title of the story:");
+      if (title) {
+        const prompt = await generateImagePrompts(fullStory);
+        const generatedImages = await generateImagesFromPrompts(prompt);
+        const storyId = await tablelandUtils.saveStory(title, connectedAddress ? connectedAddress : "Unknown");
+        await tablelandUtils.saveNFTImages(storyId, generatedImages, prompt);
+        window.location.href = `http://localhost:3000/stories/${title}/nfts`;
+      } else {
+        alert("Title is required to mint NFTs.");
+      }
+    } catch (error) {
+      console.error("Error minting NFTs:", error);
+      alert("Error minting NFTs. Please try again.");
+    }
+  };
   return (
     <>
       {isLoading ? (
@@ -160,13 +183,16 @@ const Story: NextPage = () => {
               </button>
             </div>
           </div>
-          <div>
+          <div className="flex justify-center gap-5">
             <button
               onClick={handleSaveStory}
               disabled={isSaving}
               className="btn btn-outline rounded-md mt-5 btn-success"
             >
               {isSaving ? "Saving..." : "Save Story"}
+            </button>
+            <button onClick={handleMintNFTs} className="btn btn-outline rounded-md mt-5 btn-primary">
+              Mint NFTs
             </button>
           </div>
         </div>

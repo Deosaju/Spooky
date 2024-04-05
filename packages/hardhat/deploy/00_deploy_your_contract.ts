@@ -9,10 +9,14 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
     from: deployer,
     log: true,
   });
+  await deploy("SpookyNFT", {
+    from: deployer,
+    log: true,
+  });
 };
 
 export default deployYourContract;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["Spooky"];
+deployYourContract.tags = ["Spooky", "SpookyNFT"];

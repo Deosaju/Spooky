@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "../../components/Loader";
-import { TablelandService } from "../../services/tableland/tablelandService";
 import type { NextPage } from "next";
+import { StoryContract } from "~~/services/contract/StoryContract";
 
-const tablelandService = new TablelandService();
+const storyContract = new StoryContract();
 interface Story {
   id: number;
   title: string;
@@ -21,7 +21,7 @@ const Stories: NextPage = () => {
   useEffect(() => {
     const fetchStories = async () => {
       try {
-        const fetchedStories = await tablelandService.getAllStories();
+        const fetchedStories = await storyContract.getAllStories();
         setStories(fetchedStories);
         setIsLoading(false);
       } catch (error) {

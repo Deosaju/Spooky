@@ -1,7 +1,6 @@
-// TablelandService.ts
-import deployedContracts from "../../contracts/deployedContracts";
-import { Database } from "@tableland/sdk";
+// StoryContract.ts
 import { ethers } from "ethers";
+import deployedContracts from "~~/contracts/deployedContracts";
 
 interface Story {
   id: number;
@@ -10,31 +9,7 @@ interface Story {
   author: string;
 }
 
-export class TablelandService {
-  private db: Database | null = null;
-
-  async connect(): Promise<void> {
-    try {
-      // Create a signer using the private key
-      const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY;
-      if (!privateKey) {
-        throw new Error("Private key not found in environment variables");
-      }
-      const wallet = new ethers.Wallet(privateKey);
-      const provider = new ethers.providers.JsonRpcProvider(
-        "https://arbitrum-sepolia.infura.io/v3/d742656554e74d2a897b6139b0488b50",
-      );
-      const signer = wallet.connect(provider);
-
-      // Connect to the Tableland database using the signer
-      this.db = new Database({ signer });
-      console.log("Connected to Tableland database");
-    } catch (error) {
-      console.error("Error connecting to Tableland:", error);
-      throw error;
-    }
-  }
-
+export class StoryContract {
   private contract: ethers.Contract | null = null;
 
   constructor() {
@@ -80,10 +55,21 @@ export class TablelandService {
     }
   }
 
-  getDatabase(): Database {
-    if (!this.db) {
-      throw new Error("Tableland database not connected");
+  async getStory(storyId: number): Promise<Story | null> {
+    try {
+      if (!this.contract) {
+        throw new Error("Contract not initialized");
+      }
+      const story = await this.contract.getStory(storyId);
+      return {
+        id: story[0].toNumber(),
+        title: story[1],
+        content: story[2],
+        author: story[3],
+      };
+    } catch (error) {
+      console.error("Error fetching story from the smart contract:", error);
+      return null;
     }
-    return this.db;
   }
 }

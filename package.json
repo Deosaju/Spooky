@@ -41,7 +41,9 @@
   },
   "dependencies": {
     "@tableland/sdk": "^6.0.0",
+    "axios": "^1.6.8",
     "ethers": "^5.7.2",
+    "node-fetch": "^3.3.2",
     "openai": "^4.29.2"
   }
 }
