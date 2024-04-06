@@ -151,7 +151,7 @@ const Story: NextPage = () => {
     try {
       if (title) {
         const prompt = await generateImagePrompts(fullStory);
-        // const generatedImages = await generateImagesFromPrompts(prompt);
+        const generatedImages = await generateImagesFromPrompts(prompt);
         const existingStory = await tablelandUtils.getStoryByTitle(title);
         const connectedAuthor = connectedAddress || "Unknown";
 
@@ -169,7 +169,7 @@ const Story: NextPage = () => {
         }
         if (storyId !== null) {
           console.log(storyId);
-          await tablelandUtils.saveNFTImages(storyId, "Teast", prompt);
+          await tablelandUtils.saveNFTImages(storyId, generatedImages, prompt);
           router.push(`/stories/${title}/nfts`);
         } else {
           alert("Failed to save the story. Please try again.");
